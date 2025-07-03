@@ -1,0 +1,227 @@
+/* --- Global Styles & Variables --- */
+:root {
+    --primary-color: #4a90e2;  /* A modern, friendly blue */
+    --secondary-color: #50e3c2; /* A fresh mint green */
+    --text-color: #333;
+    --light-text-color: #777;
+    --background-color: #f7f8fa;
+    --card-background: #ffffff;
+    --border-color: #e8e8e8;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: linear-gradient(135deg, #e0f7fa 0%, #f7f8fa 100%);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* --- Main Card Container --- */
+.card-container {
+    background-color: var(--card-background);
+    max-width: 400px;
+    width: 100%;
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow: hidden; /* Important for header design */
+    transition: transform 0.3s ease;
+}
+.card-container:hover {
+    transform: translateY(-5px);
+}
+
+/* --- Card Header --- */
+.card-header {
+    background: var(--primary-color);
+    padding: 30px 20px;
+    color: white;
+    position: relative;
+}
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+
+    /* --- الإضافة المهمة هنا --- */
+    object-fit: cover;     /* يمنع تشوه الصورة ويحافظ على أبعادها */
+    object-position: center; /* يضمن أن منتصف الصورة هو ما يظهر */
+}
+}
+.card-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.card-header .job-title {
+    margin: 5px 0 0;
+    font-size: 1.1rem;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+/* --- Card Body & Sections --- */
+.card-body {
+    padding: 30px;
+}
+section {
+    margin-bottom: 25px;
+}
+section:last-child {
+    margin-bottom: 0;
+}
+
+/* --- Bio Section --- */
+.bio p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #555;
+    margin: 0;
+}
+
+/* --- CTA (Call to Action) Button --- */
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+}
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(74, 144, 226, 0.5);
+}
+.cta-button i {
+    font-size: 1.3rem;
+}
+
+
+/* --- Contact Info --- */
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.contact-info a {
+    display: inline-block;
+    color: var(--light-text-color);
+    font-size: 1.6rem;
+    transition: all 0.3s ease;
+}
+.contact-info a:hover {
+    color: var(--primary-color);
+    transform: scale(1.2);
+}
+
+/* --- Social Links --- */
+.social-links {
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.social-icon {
+    font-size: 1.5rem;
+    color: #b0b0b0;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+.social-icon:hover {
+    transform: translateY(-4px);
+}
+.social-icon.linkedin:hover { color: #0077b5; }
+.social-icon.twitter:hover { color: #1DA1F2; }
+.social-icon.instagram:hover { color: #E4405F; }
+.social-icon.github:hover { color: #333; }
+.social-icon.youtube:hover { color: #FF0000; }
+
+/* --- Additional Links --- */
+.additional-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.additional-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+.additional-button:hover {
+    background-color: #f8f9fa;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+.additional-button i {
+    font-size: 1.1rem;
+}
+
+/* --- QR Code Section --- */
+.qr-code-section {
+    border-top: 1px solid var(--border-color);
+    padding-top: 25px;
+    margin-top: 30px;
+}
+#qrcode {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+#qrcode img {
+    border-radius: 8px;
+}
+.qr-code-section h3 {
+    margin: 0 0 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.qr-text {
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+    margin: 0;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 450px) {
+    body {
+        padding: 10px;
+    }
+    .card-container {
+        border-radius: 20px;
+    }
+    .card-header h1 {
+        font-size: 1.8rem;
+    }
+    .card-header .job-title {
+        font-size: 1rem;
+    }
+    .card-body {
+        padding: 25px 20px;
+    }
+}
