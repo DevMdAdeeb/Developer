@@ -153,7 +153,8 @@ section:last-child {
 .social-icon.instagram:hover { color: #E4405F; }
 .social-icon.github:hover { color: #333; }
 .social-icon.youtube:hover { color: #FF0000; }
-
+.social-icon.telegram:hover { color: #8421f1; }
+.social-icon.facebook:hover { color: #8421f1; }
 /* --- Additional Links --- */
 .additional-links {
     display: flex;
@@ -224,4 +225,4 @@ section:last-child {
     .card-body {
         padding: 25px 20px;
     }
-}
+    }
