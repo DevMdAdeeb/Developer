@@ -1,0 +1,6 @@
+python-telegram-bot
+pandas
+pandas-ta
+ccxt
+schedule
+requests
