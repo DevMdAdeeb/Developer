@@ -14,29 +14,29 @@ from bot import (
     help_command
 )
 
-# --- Configuration ---
+# --- الإعدادات ---
 SYMBOLS = ['BTC/USDT', 'ETH/USDT', 'SOL/USDT', 'ADA/USDT']
 TIMEFRAMES = ['15m', '1h', '2h', '4h']
 
-# --- Logging Setup ---
+# --- إعدادات تسجيل الأنشطة ---
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
 logger = logging.getLogger(__name__)
 
-# --- Global Application and Event Loop Objects ---
+# --- متغيرات التطبيق وحلقة الأحداث ---
 app = None
 loop = None
 
-# --- Core Logic ---
+# --- المنطق الأساسي ---
 def check_signals():
-    """Iterates through symbols and timeframes, fetches data, analyzes it, and triggers notifications."""
-    logger.info("Scheduler is running signal check...")
+    """يتكرر عبر الرموز والأطر الزمنية، يجلب البيانات، يحللها، ويرسل الإشعارات."""
+    logger.info("الجدول الزمني يقوم بفحص الإشارات...")
     for symbol in SYMBOLS:
         for timeframe in TIMEFRAMES:
             try:
-                logger.info(f"Checking {symbol} on {timeframe}...")
+                logger.info(f"يتم فحص {symbol} على إطار زمني {timeframe}...")
                 market_data = get_data(symbol, timeframe)
                 if market_data is not None and not market_data.empty:
                     signal_found = analyze_data(market_data)
@@ -44,35 +44,35 @@ def check_signals():
                         message = f"🚨 إشارة شراء محتملة! 🚨\n\n" \
                                   f"العملة: {symbol}\n" \
                                   f"الإطار الزمني: {timeframe}"
-                        logger.info(f"Signal found for {symbol} on {timeframe}. Broadcasting...")
+                        logger.info(f"تم العثور على إشارة لـ {symbol} على إطار زمني {timeframe}. يتم الآن الإرسال...")
                         if loop:
                             asyncio.run_coroutine_threadsafe(broadcast(message), loop)
                 else:
-                    logger.warning(f"Could not get data for {symbol} on {timeframe}.")
-                time.sleep(2) # To avoid hitting API rate limits
+                    logger.warning(f"لم يتم الحصول على بيانات لـ {symbol} على إطار زمني {timeframe}.")
+                time.sleep(2) # لتجنب الوصول إلى حدود طلبات API
             except Exception as e:
-                logger.error(f"Error checking signal for {symbol} on {timeframe}: {e}")
-    logger.info("Signal check finished.")
+                logger.error(f"خطأ أثناء فحص الإشارة لـ {symbol} على إطار زمني {timeframe}: {e}")
+    logger.info("انتهى فحص الإشارات.")
 
 async def broadcast(message):
-    """Sends a message to all subscribers."""
+    """يرسل رسالة إلى جميع المشتركين."""
     subscribers = load_subscribers()
     if not subscribers:
-        logger.info("Broadcast skipped: No subscribers.")
+        logger.info("تم تخطي الإرسال: لا يوجد مشتركين.")
         return
 
     for chat_id in subscribers:
         try:
             await app.bot.send_message(chat_id=chat_id, text=message)
         except Exception as e:
-            logger.error(f"Failed to send message to {chat_id}: {e}")
+            logger.error(f"فشل إرسال الرسالة إلى {chat_id}: {e}")
 
-# --- Bot and Scheduler Setup ---
+# --- إعداد البوت والجدول الزمني ---
 def run_bot():
-    """Sets up and runs the Telegram bot in polling mode."""
+    """يقوم بإعداد وتشغيل بوت التلغرام."""
     global app, loop
     if TELEGRAM_TOKEN == "YOUR_TELEGRAM_TOKEN":
-        logger.error("Please replace 'YOUR_TELEGRAM_TOKEN' in the bot.py file.")
+        logger.error("يرجى استبدال 'YOUR_TELEGRAM_TOKEN' في ملف bot.py.")
         return
 
     loop = asyncio.get_event_loop()
@@ -82,19 +82,19 @@ def run_bot():
     app.add_handler(CommandHandler("stop", stop_command))
     app.add_handler(CommandHandler("help", help_command))
 
-    logger.info("Telegram Bot is starting...")
+    logger.info("بوت التلغرام قيد التشغيل...")
     app.run_polling()
 
 def run_scheduler():
-    """Sets up and runs the job scheduler."""
-    logger.info("Scheduler is starting...")
+    """يقوم بإعداد وتشغيل جدول المهام."""
+    logger.info("الجدول الزمني قيد التشغيل...")
     schedule.every(15).minutes.do(check_signals)
-    check_signals() # Run once at startup
+    check_signals() # التشغيل مرة واحدة عند بدء التشغيل
     while True:
         schedule.run_pending()
         time.sleep(1)
 
-# --- Main Execution ---
+# --- التنفيذ الرئيسي ---
 if __name__ == '__main__':
     bot_thread = threading.Thread(target=run_bot)
     bot_thread.daemon = True

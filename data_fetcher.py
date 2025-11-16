@@ -3,14 +3,14 @@ import pandas as pd
 
 def get_data(symbol, timeframe):
     """
-    Fetches historical candlestick data from Binance.
+    جلب بيانات الشموع التاريخية من منصة OKX.
 
     Args:
-        symbol (str): The trading pair symbol (e.g., 'BTC/USDT').
-        timeframe (str): The timeframe for the data (e.g., '1h', '4h').
+        symbol (str): رمز زوج التداول (مثال: 'BTC/USDT').
+        timeframe (str): الإطار الزمني للبيانات (مثال: '1h', '4h').
 
     Returns:
-        pandas.DataFrame: A DataFrame containing the OHLCV data, or None if an error occurs.
+        pandas.DataFrame: إطار بيانات يحتوي على بيانات OHLCV، أو None في حالة حدوث خطأ.
     """
     try:
         exchange = ccxt.okx()
@@ -20,24 +20,24 @@ def get_data(symbol, timeframe):
             df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
             return df
     except ccxt.NetworkError as e:
-        print(f"Network error while fetching data for {symbol} on {timeframe}: {e}")
+        print(f"خطأ في الشبكة أثناء جلب البيانات لـ {symbol} على الإطار الزمني {timeframe}: {e}")
     except ccxt.ExchangeError as e:
-        print(f"Exchange error while fetching data for {symbol} on {timeframe}: {e}")
+        print(f"خطأ في المنصة أثناء جلب البيانات لـ {symbol} على الإطار الزمني {timeframe}: {e}")
     except Exception as e:
-        print(f"An unexpected error occurred while fetching data for {symbol} on {timeframe}: {e}")
+        print(f"حدث خطأ غير متوقع أثناء جلب البيانات لـ {symbol} على الإطار الزمني {timeframe}: {e}")
 
     return None
 
 if __name__ == '__main__':
-    # Example usage for testing
+    # مثال للاستخدام بغرض الاختبار
     symbol_to_test = 'BTC/USDT'
     timeframe_to_test = '1h'
     data = get_data(symbol_to_test, timeframe_to_test)
 
     if data is not None and not data.empty:
-        print(f"Successfully fetched data for {symbol_to_test} on {timeframe_to_test}:")
+        print(f"تم جلب البيانات بنجاح لـ {symbol_to_test} على الإطار الزمني {timeframe_to_test}:")
         print(data.head())
-        print("\nData columns and types:")
+        print("\nأعمدة البيانات وأنواعها:")
         print(data.info())
     else:
-        print(f"Failed to fetch data for {symbol_to_test} on {timeframe_to_test}.")
+        print(f"فشل جلب البيانات لـ {symbol_to_test} على الإطار الزمني {timeframe_to_test}.")
